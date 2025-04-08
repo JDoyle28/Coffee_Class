@@ -2,6 +2,11 @@
 
 Description: A coffee class to track coffee and their prices to associated drinkers and determines today's buyer!
 
+Assumtions: 
+
+I made the assumption that pople would be there everyday ordering the same drink, at the same price. However, the way I set up 
+the classes, its simple functionality to add with a little time.
+
 Solution:
 
 So my first goal is to set up the gui and the mechanics for populating our team and the button action for calculating the next buyer.
@@ -30,7 +35,7 @@ Build and Run Instructions:
 
 Retroflection:
     I think I may be still miscalculating what a fair schedule looks like here, but I think this demonstrates what I need to. And I'd love 
-    to discuss this all more with you!
+    to discuss about how I could have done it differently.
 
 
 
