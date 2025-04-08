@@ -1,41 +1,87 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class CoffeeClass {
-    private ArrayList<List<String>> members;
-    private int todaysBuyer;
+    // general team information
+    private ArrayList<Coworker> members;
+    private Coworker todaysBuyer;
+    private int totalPrice;
 
+    // constructor to create an instance of this class, i.e. just one team
     public CoffeeClass() {
-        // Initialization code - add 7 members of the team
-        ArrayList<List<String>> myList = new ArrayList<>();
+        ArrayList<Coworker> myList = new ArrayList<>();
         this.members = myList;
-        this.todaysBuyer = 0;
+        this.totalPrice = getTotalPrice(myList);
     }
 
+    // adds a team member to the this instance, i.e. this team
+    public void addMember(Coworker newMember) {
+        this.members.add(newMember);
+        if (this.todaysBuyer == null) {
+            this.todaysBuyer = newMember;
+        }
+        this.totalPrice = getTotalPrice(this.members);
+        System.out.println("A new team member!");
+        System.out.println(newMember.name);
+
+    }
+
+    // rotates through the list of team members and returns todays buyuer
+    // if the list is at the end we start over again!
     public String todaysBuyer() {
-        int length = this.members.size();
-        if (this.todaysBuyer >= length - 1) {
-            this.todaysBuyer = 0;
-        } else {
-            this.todaysBuyer += 1;
+
+        // add todays price to their debt
+        for (Coworker i : this.members) {
+            i.addDebt(i.price);
         }
 
-        ArrayList<String> today = new ArrayList<>(members.get(this.todaysBuyer));
-        System.out.println(today.get(0) + " will be buying coffee today!");
-
-        return today.get(0);
+        Coworker todays = getLargestDebt();
+        // we have the largest. now we need to iterate over subracting or adding
+        for (Coworker i : this.members) {
+            if (i.debt == todays.debt) { // subtract money because they are paying
+                i.subDebt(this.totalPrice);
+            } else { // everyone else adds because they didn't pay
+                i.addDebt(i.price);
+            }
+        }
+        System.out.println("Todays buyer is: " + todays.name);
+        this.todaysBuyer = todays;
+        return todays.name;
     }
 
-    public void addMember(String[] newMember) {
-        ArrayList<String> member = new ArrayList<>();
-        member.add(newMember[0]);
-        member.add(newMember[1]);
-        member.add(newMember[2]);
-        members.add(member);
+    private Coworker getLargestDebt() {
+        Coworker todays = this.todaysBuyer;
+        // find largest debt
+        for (Coworker i : this.members) {
+            if (i.getDebt() > todays.getDebt()) {
+                todays = i;
+            }
+        }
+        return todays;
     }
 
-    public ArrayList<List<String>> getMembers() {
-        return this.members;
+    private int getTotalPrice(ArrayList<Coworker> t) {
+        int count = 0;
+        for (Coworker i : t) {
+            count += i.price;
+        }
+        return count;
+    }
+
+    public ArrayList<String> getMembers() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Coworker i : this.members) {
+            names.add(i.name);
+        }
+        return names;
+    }
+
+    public ArrayList<String> getDebts() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Coworker i : this.members) {
+            // System.out.println(i.getDebt());
+            names.add(i.getDebt().toString());
+        }
+        return names;
     }
 
 }
