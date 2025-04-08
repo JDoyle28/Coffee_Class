@@ -39,8 +39,6 @@ public class CoffeeClass {
         for (Coworker i : this.members) {
             if (i.debt == todays.debt) { // subtract money because they are paying
                 i.subDebt(this.totalPrice);
-            } else { // everyone else adds because they didn't pay
-                i.addDebt(i.price);
             }
         }
         System.out.println("Todays buyer is: " + todays.name);
