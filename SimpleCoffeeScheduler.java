@@ -39,6 +39,7 @@ public class SimpleCoffeeScheduler {
         JPanel panel = new JPanel();
         JPanel panelHalf = new JPanel();
         JPanel panel2 = new JPanel();
+        panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
         JPanel panel3 = new JPanel();
 
         JLabel teamLabel = new JLabel(wholeTeam.toString());
@@ -93,7 +94,7 @@ public class SimpleCoffeeScheduler {
 
         frame.getContentPane().add(mainPanel);
         // Set the size of the frame and make it visible.
-        frame.setSize(320, 800);
+        frame.setSize(320, 350);
         frame.setVisible(true);
     }
 }
